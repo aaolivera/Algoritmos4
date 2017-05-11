@@ -7,13 +7,17 @@
 		input-output section.
 		file-control.
 		     select CONSOR-1
-		     assign to disk "C:\CONSOR-1.txt".
+		     assign to disk "C:\CONSOR-1.txt"
+             file status is fs-CONSOR.
              
 	         select CUENTAS
-		     assign to disk "C:\CUENTAS.txt".
+		     assign to disk "C:\CUENTAS.txt"
+             file status is fs-CUENTAS.
              
              select ESTADO
-		     assign to disk "C:\ESTADO.txt".
+		     assign to disk "C:\ESTADO.txt"
+             organization is line sequential
+             file status is fs-ESTADO.
              
 		DATA division.
 		file section.
@@ -46,29 +50,30 @@
 			03 DESCRIP pic X(15).
             
         01 indice pic 99.
-		01 fs-arch pic xx.
-		     88 ok-arch value "00".
-		     88 eof-arch value "10".        01 exitval pic x.
+		01 fs-CONSOR pic xx.
+		     88 ok-CONSOR value "00".
+		     88 eof-CONSOR value "10".
+        01 fs-CUENTAS pic xx.
+		     88 ok-CUENTAS value "00".
+		     88 eof-CUENTAS value "10".
+        01 fs-ESTADO pic xx.
+		     88 ok-ESTADO value "00".
+		     88 eof-ESTADO value "10".
+        01 exitval pic x.
         
 		PROCEDURE division.
 			open input ESTADO.
-			perform leerarch.
-			perform cargar until eof-arch or indice > 30.
-			close ESTADO.
-			accept exitval.
-		cargar .
-			move corresponding REG_ESTADO to tablaEstado(indice).
-			display tablaEstado(indice).
-			add 1 to indice.
-			perform leerarch.
+            read ESTADO.
+            move 1 to indice.
+            perform cargarESTADO until eof-ESTADO or indice > 30.
+            close ESTADO.
+            accept exitval.
             
-		leerarch.
-			read ESTADO .
-			if (not ok-arch)
-			    display "ERROR AL LEER : " fs-arch
-			end-if.
+        cargarESTADO.
+            move corresponding REG_ESTADO to tablaEstado(indice).
+            add 1 to indice.
+            read ESTADO.
 
-		    goback.
 		end program Program1.
         
 

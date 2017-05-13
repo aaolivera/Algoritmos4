@@ -26,5 +26,12 @@
   <ItemGroup>
     <Compile Include="Program1.cbl" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CONSOR-1.txt" />
+    <None Include="CONSOR-2.txt" />
+    <None Include="CONSOR-3.txt" />
+    <None Include="CUENTAS.txt" />
+    <None Include="ESTADO.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Micro Focus\Visual COBOL\v1.0\MicroFocus.COBOL.targets" />
 </Project>

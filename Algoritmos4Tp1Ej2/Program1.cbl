@@ -96,6 +96,7 @@
        stop run.
        
        salida.
+           display "Anio      Estado       Cantidad".
            RETURN ORDENAR.
            perform procesarOrdenado until eof-ORDENAR.
        
@@ -105,8 +106,8 @@
            perform contarEstadoPorAnio until eof-ORDENAR or 
            ANIO of REG_ORDENAR <> ANIO of REG_ORDENAR_ANT or
            ESTADO_NUM of REG_ORDENAR <> ESTADO_NUM of REG_ORDENAR_ANT.
-           display ANIO of REG_ORDENAR_ANT " "
-           ESTADO_NUM of REG_ORDENAR_ANT " " CONTADOR.
+           display ANIO of REG_ORDENAR_ANT "      "
+           ESTADO_NUM of REG_ORDENAR_ANT "           " CONTADOR.
        
        contarEstadoPorAnio.
            move REG_ORDENAR to REG_ORDENAR_ANT.
@@ -118,6 +119,10 @@
            open input CONSOR-2.
            open input CONSOR-3.
            
+           read CONSOR-1.
+           read CONSOR-2.
+           read CONSOR-3.
+
            perform procesarConsor1 until eof-CONSOR-1.
            perform procesarConsor2 until eof-CONSOR-2.
            perform procesarConsor3 until eof-CONSOR-3.
@@ -127,21 +132,21 @@
            close CONSOR-3.
            
        procesarConsor1.
-           read CONSOR-1.
            move ANIO of REG_CONSOR-1 to ANIO of REG_ORDENAR.
            move ESTADO_NUM of REG_CONSOR-1 to ESTADO_NUM of REG_ORDENAR.
            release REG_ORDENAR.
+           read CONSOR-1.
        
        procesarConsor2.
-           read CONSOR-2.
            move ANIO of REG_CONSOR-2 to ANIO of REG_ORDENAR.
            move ESTADO_NUM of REG_CONSOR-2 to ESTADO_NUM of REG_ORDENAR.
            release REG_ORDENAR.
+           read CONSOR-2.
        
        procesarConsor3.
-           read CONSOR-3.
            move ANIO of REG_CONSOR-3 to ANIO of REG_ORDENAR.
            move ESTADO_NUM of REG_CONSOR-3 to ESTADO_NUM of REG_ORDENAR.
            release REG_ORDENAR.
-           
+           read CONSOR-3.
+          
        end program Program1.

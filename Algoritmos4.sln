@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{535C04D7-A2A5-47C7-83E0-B340A995CD1F}") = "Algoritmos4", "Algoritmos4\Algoritmos4.cblproj", "{C3A0E180-73A6-45F1-8650-5061C32183E2}"
 EndProject
+Project("{535C04D7-A2A5-47C7-83E0-B340A995CD1F}") = "Algoritmos4Tp1Ej2", "Algoritmos4Tp1Ej2\Algoritmos4Tp1Ej2.cblproj", "{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -15,6 +17,10 @@ Global
 		{C3A0E180-73A6-45F1-8650-5061C32183E2}.Debug|x86.Build.0 = Debug|x86
 		{C3A0E180-73A6-45F1-8650-5061C32183E2}.Release|x86.ActiveCfg = Release|x86
 		{C3A0E180-73A6-45F1-8650-5061C32183E2}.Release|x86.Build.0 = Release|x86
+		{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}.Debug|x86.ActiveCfg = Debug|x86
+		{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}.Debug|x86.Build.0 = Debug|x86
+		{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}.Release|x86.ActiveCfg = Release|x86
+		{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -119,7 +119,9 @@
              03 SUCURSAL pic 9(3).
         
         01 WS-YYYY-MM-DD pic 9(8).
-        
+        01 PAGINAS pic 99.
+        01 LINEAS pic 9(8).
+        01 LINEASAAGREGAR pic 9(8).
 		PROCEDURE division.
            perform cargarEstado.
            open input CONSOR-1.
@@ -134,12 +136,16 @@
            
            move 0 to BAJAS.
            move 0 to NOVEDADES.
+           move 1 to PAGINAS.
+           move 0 to LINEAS.
            perform imprimirEncabezado.
            
            
            perform procesarConsorcios until eof-CUENTAS and eof-CONSOR-1
            and eof-CONSOR-2 and eof-CONSOR-3.
            
+           move 1 to LINEASAAGREGAR
+           perform validarPagina.
            display "Total de Consorcios dados de baja: " BAJAS.
            close CONSOR-1.
            close CONSOR-2.
@@ -147,10 +153,18 @@
            close CUENTAS.
         stop run.
         
+        validarPagina.
+           if(LINEAS + LINEASAAGREGAR > 60)
+               add 1 to PAGINAS
+               perform imprimirEncabezado.
+        
         imprimirEncabezado.
            accept WS-YYYY-MM-DD from date yyyymmdd.
-           display "Fecha: " WS-YYYY-MM-DD.
-           display "            LISTADO DE CONSORCIOS DE BAJA".
+           display "Fecha: "WS-YYYY-MM-DD"                             "
+           "        Hoja nro "PAGINAS.
+           display "                LISTADO DE CONSORCIOS DE BAJA".
+           display " ".
+           move 3 to LINEAS.
         
         procesarConsorcios.
            perform determinarMenor.
@@ -173,7 +187,15 @@
         listarBajas.
            if ESTADO_NUM of REG_ANT = 2
                add 1 to BAJAS
-               display "baja".
+               move 5 to LINEASAAGREGAR
+               perform validarPagina
+               add LINEASAAGREGAR to LINEAS
+               display "CUIT-CONS        FEC-ALTA    FEC-BAJA    "
+               "NOMBRE                          TELEFONO"
+               display "DIRECCION"
+               display CUIT-CO of REG_ANT"  "FECHA-ALTA of REG_ANT  
+               "  "FECHA-BAJA of REG_ANT"  "NOMBRE-CONSORCIO of REG_ANT 
+               "  "TEL of REG_ANT.
         
         generarMaestro.
            if CUIT-CO of REG_C_ANT <> REG_MENOR and 

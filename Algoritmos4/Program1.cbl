@@ -161,8 +161,8 @@
         imprimirEncabezado.
            accept WS-YYYY-MM-DD from date yyyymmdd.
            display "Fecha: "WS-YYYY-MM-DD"                             "
-           "        Hoja nro "PAGINAS.
-           display "                LISTADO DE CONSORCIOS DE BAJA".
+           "                  Hoja nro "PAGINAS.
+           display "                     LISTADO DE CONSORCIOS DE BAJA".
            display " ".
            move 3 to LINEAS.
         

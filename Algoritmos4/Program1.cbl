@@ -215,7 +215,7 @@
                "DIRECCION"
                display CUIT-CO of REG_ANT"  "FECHA-ALTA of REG_ANT  
                "  "FECHA-BAJA of REG_ANT"  "NOMBRE-CONSORCIO of REG_ANT 
-               "  "TEL of REG_ANT"   " DIR of REG_ANT
+               "  "TEL of REG_ANT"     " DIR of REG_ANT
                display " ".
         
         generarMaestro.

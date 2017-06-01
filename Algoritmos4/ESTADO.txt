@@ -1,6 +1,6 @@
-01aaa
-02bbb
-03ccc
+Ôªø01Vigente
+02Dado de Baja
+03En tr√°mite
 04ddd
 05eee
 06fff
@@ -11,7 +11,7 @@
 11kkk
 12lll
 13mmm
-14ÒÒÒ
+14—Å—Å—Å
 15ooo
 16ppp
 17qqq

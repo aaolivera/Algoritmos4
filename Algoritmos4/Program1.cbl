@@ -31,6 +31,11 @@
              organization is line sequential
              file status is fs-ESTADO.
              
+             select MAESTRO
+		     assign to disk "C:\temp\MAESTRO.txt"
+             organization is line sequential
+             file status is fs-MAESTRO.
+             
 		DATA division.
 		file section.
 		fd CONSOR-1.
@@ -75,7 +80,17 @@
 		01 REG_ESTADO.
 		     03 ESTADO_NUM pic 9(2).
 			 03 DESCRIP pic X(15).
-             
+        
+        fd MAESTRO.
+		01 REG_MAESTRO.
+		     03 CUIT-CO pic 9(15).
+		     03 FECHA-ALTA pic x(10).
+             03 DESCRIP pic X(15).
+             03 NOMBRE-CONSORCIO pic x(30).
+             03 TEL pic x(15).
+             03 DIR pic x(30).
+             03 NRO-CTA pic 9(8).
+        
 		working-storage section.
 		01 tablaEstado occurs 30 times.
 			03 ESTADO_NUM pic 9(2).
@@ -97,6 +112,9 @@
         01 fs-ESTADO pic xx.
 		     88 ok-ESTADO value "00".
 		     88 eof-ESTADO value "10".
+        01 fs-MAESTRO pic xx.
+		     88 ok-ESTADO value "00".
+		     88 eof-MAESTRO value "10".
         01 exitval pic x.
         
         01 NOVEDADES pic 9(4).
@@ -127,7 +145,8 @@
            open input CONSOR-1.
            open input CONSOR-2.
            open input CONSOR-3.
-           open input CUENTAS.
+           open input CUENTAS. 
+           open output MAESTRO. 
            
            read CONSOR-1
            read CONSOR-2
@@ -150,6 +169,7 @@
            close CONSOR-1.
            close CONSOR-2.
            close CONSOR-3.
+           close MAESTRO.
            close CUENTAS.
         stop run.
         
@@ -191,20 +211,39 @@
                perform validarPagina
                add LINEASAAGREGAR to LINEAS
                display "CUIT-CONS        FEC-ALTA    FEC-BAJA    "
-               "NOMBRE                          TELEFONO"
-               display "DIRECCION"
+               "NOMBRE                          TELEFONO           "
+               "DIRECCION"
                display CUIT-CO of REG_ANT"  "FECHA-ALTA of REG_ANT  
                "  "FECHA-BAJA of REG_ANT"  "NOMBRE-CONSORCIO of REG_ANT 
-               "  "TEL of REG_ANT.
+               "  "TEL of REG_ANT"   " DIR of REG_ANT
+               display " ".
         
         generarMaestro.
            if CUIT-CO of REG_C_ANT <> REG_MENOR and 
            ESTADO_NUM of REG_ANT <> 2
-               display "registro sin cuenta".
-               
+               move CUIT-CO of REG_ANT to CUIT-CO of REG_MAESTRO
+               move FECHA-ALTA of REG_ANT to FECHA-ALTA of REG_MAESTRO
+               move tablaEstado(ESTADO_NUM of REG_ANT
+               ) to DESCRIP of REG_MAESTRO
+               move NOMBRE-CONSORCIO of REG_ANT to 
+               NOMBRE-CONSORCIO of REG_MAESTRO
+               move TEL of REG_ANT to TEL of REG_MAESTRO
+               move DIR of REG_ANT to DIR of REG_MAESTRO
+               write REG_MAESTRO end-write.
+              
            if CUIT-CO of REG_C_ANT = REG_MENOR and 
            ESTADO_NUM of REG_ANT <> 2
-               display "registro con cuenta".
+               move CUIT-CO of REG_ANT to CUIT-CO of REG_MAESTRO
+               move FECHA-ALTA of REG_ANT to FECHA-ALTA of REG_MAESTRO
+               move tablaEstado(ESTADO_NUM of REG_ANT
+               ) to DESCRIP of REG_MAESTRO
+               move NOMBRE-CONSORCIO of REG_ANT to 
+               NOMBRE-CONSORCIO of REG_MAESTRO
+               move TEL of REG_ANT to TEL of REG_MAESTRO
+               move DIR of REG_ANT to DIR of REG_MAESTRO
+               move NRO-CTA of REG_C_ANT to NRO-CTA of REG_MAESTRO
+               
+               write REG_MAESTRO end-write.
            
                                                                                     
         procesarConsor1.

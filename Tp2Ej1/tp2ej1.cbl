@@ -1,5 +1,5 @@
        identification division.
-       program-id. Program1.
+       program-id. tp2ej1.
 
        environment division.
        configuration section.
@@ -9,6 +9,7 @@
 
        procedure division.
 
+
            goback.
 
-       end program Program1.
+       end program tp2ej1.

@@ -33,9 +33,6 @@
            01 CLAVE pic 9(08).
            01 COUNTER pic 9(10).
            01 eof-file pic 9(1).
-
-
-
        procedure division.
            OPEN INPUT CUITPROV.
 
@@ -44,9 +41,7 @@
 
            START CUITPROV
                KEY IS GREATER THAN CLAVE
-               INVALID KEY DISPLAY "error no hay clave"
-               NOT INVALID KEY DISPLAY "clave ok"
-           END-START.
+               INVALID KEY DISPLAY "error no hay clave".
 
            READ CUITPROV NEXT RECORD
                AT END SET eof-CUITPROV TO TRUE

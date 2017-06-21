@@ -11,6 +11,8 @@ Project("{535C04D7-A2A5-47C7-83E0-B340A995CD1F}") = "Tp2Ej1", "Tp2Ej1\Tp2Ej1.cbl
 EndProject
 Project("{535C04D7-A2A5-47C7-83E0-B340A995CD1F}") = "Tp2Ej2", "Tp2Ej2\Tp2Ej2.cblproj", "{FE3A6126-EBCB-49D4-8C2F-CC16D5956E95}"
 EndProject
+Project("{535C04D7-A2A5-47C7-83E0-B340A995CD1F}") = "Tp2Ej1Generador", "Tp2Ej1Generador\Tp2Ej1Generador.cblproj", "{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -33,6 +35,10 @@ Global
 		{FE3A6126-EBCB-49D4-8C2F-CC16D5956E95}.Debug|x86.Build.0 = Debug|x86
 		{FE3A6126-EBCB-49D4-8C2F-CC16D5956E95}.Release|x86.ActiveCfg = Release|x86
 		{FE3A6126-EBCB-49D4-8C2F-CC16D5956E95}.Release|x86.Build.0 = Release|x86
+		{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}.Debug|x86.ActiveCfg = Debug|x86
+		{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}.Debug|x86.Build.0 = Debug|x86
+		{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}.Release|x86.ActiveCfg = Release|x86
+		{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

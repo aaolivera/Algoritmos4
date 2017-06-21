@@ -7,7 +7,7 @@
        INPUT-OUTPUT SECTION.
            FILE-CONTROL.
                select CUITPROV
-                   assign to disk "CUITPROV.OUT"
+                   assign to disk "C:\CUITPROV.OUT"
                    organization INDEXED ACCESS DYNAMIC
                    RECORD KEY COD-PROV
                    ALTERNATE RECORD KEY CUIT-CONS WITH DUPLICATES
@@ -37,7 +37,7 @@
        procedure division.
            OPEN INPUT CUITPROV.
 
-           CALL 'actualizarProv' USING tablaConteo.
+      *    CALL 'actualizarProv' USING tablaConteo.
 
            READ CUITPROV NEXT RECORD.
            PERFORM contar UNTIL eof-CUITPROV.

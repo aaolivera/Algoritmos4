@@ -37,7 +37,7 @@
                88 ok-PROV value "00".
                88 eof-PROV value "10".
 
-           01 iterator pic 9(1) VALUE 1.
+           01 iterator pic 9(8) VALUE 1.
 
            LINKAGE SECTION.
            01 tablaConteo.
@@ -45,22 +45,22 @@
 
        PROCEDURE DIVISION USING tablaConteo.
        MAIN-PROCEDURE.
-           DISPLAY "--- PRUEBA PASAJE DE VARIABLES ---"
-           DISPLAY COUNTER(2).
+      *>      DISPLAY "--- PRUEBA PASAJE DE VARIABLES ---"
+      *>      DISPLAY COUNTER(2).
 
-           DISPLAY "--- PRUEBA LECTURA PROV---"
-           OPEN INPUT PROV.
-           READ PROV NEXT RECORD.
-           PERFORM leer UNTIL eof-PROV.
-           CLOSE PROV.
+      *>      DISPLAY "--- PRUEBA LECTURA PROV---"
+      *>      OPEN INPUT PROV.
+      *>      READ PROV NEXT RECORD.
+      *>      PERFORM leer UNTIL eof-PROV.
+      *>      CLOSE PROV.
 
-           DISPLAY "--- PRUEBA ACTUALIZACION DE ARCHIVOS---"
+           DISPLAY "--- ACTUALIZACION DE ARCHIVO ---"
 
            OPEN I-O PROV.
            PERFORM actualizar UNTIL iterator EQUAL 9.
            CLOSE PROV.
 
-           STOP RUN.
+           EXIT PROGRAM.
 
        leer.
            DISPLAY REG_PROV.
@@ -70,14 +70,15 @@
 
        actualizar.
            if(COUNTER(iterator) > 0)
+               MOVE iterator to COD-PROV of REG_PROV
                READ PROV
-                   KEY IS iterator
                    INVALID KEY DISPLAY "ERROR"
-               DISPLAY REG_PROV
+               END-READ
+
                MOVE COUNTER(iterator) TO CANT-CONS-ASIG of REG_PROV
+               DISPLAY REG_PROV
                REWRITE REG_PROV
                END-REWRITE.
 
            ADD 1 TO iterator.
-           DISPLAY iterator.
        END PROGRAM actualizarProv.

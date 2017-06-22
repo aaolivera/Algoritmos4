@@ -33,7 +33,7 @@
            select PROVOUT
                assign to disk "PROV.OUT"
                ORGANIZATION INDEXED
-               ACCESS MODE IS RANDOM
+               ACCESS MODE is RANDOM
                RECORD KEY IS PROV-OUT
                FILE STATUS IS fs-PROV-OUT.
        DATA DIVISION.
@@ -90,7 +90,6 @@
                88 ok-PROV-OUT value "00".
                88 eof-PROV-OUT value "10".
 
-
        PROCEDURE DIVISION.
        MAIN-PROCEDURE.
            OPEN input CUITPROV.
@@ -112,6 +111,14 @@
            PERFORM grabar_PROVOUT until eof-PROV.
 
            CLOSE PROV.
+           CLOSE PROVOUT.
+
+           DISPLAY "EJEMPLO DE LECTURA ARCHIVO INDEXADO"
+
+           OPEN input PROVOUT.
+           MOVE 2 TO PROV-OUT of REG_PROV_OUT.
+           READ PROVOUT
+           DISPLAY REG_PROV_OUT.
            CLOSE PROVOUT.
 
            STOP RUN.
@@ -140,7 +147,9 @@
 
            DISPLAY REG_PROV_OUT.
 
-           WRITE REG_PROV_OUT.
+           WRITE REG_PROV_OUT
+           INVALID KEY DISPLAY" RECORD IS ALREADY EXIST"
+           END-WRITE.
 
            READ PROV.
 

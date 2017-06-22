@@ -42,7 +42,7 @@
            PERFORM contar UNTIL eof-CUITPROV.
 
            CALL  "actualizarProv" USING tablaConteo.
-
+           DISPLAY "VUELVO AL PGM PRINCIPAL"
            CLOSE CUITPROV.
        STOP RUN.
 

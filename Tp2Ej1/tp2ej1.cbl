@@ -7,7 +7,7 @@
        INPUT-OUTPUT SECTION.
            FILE-CONTROL.
                select CUITPROV
-                   assign to disk "C:\CUITPROV.OUT"
+                   assign to disk "CUITPROV.OUT"
                    organization INDEXED ACCESS DYNAMIC
                    RECORD KEY COD-PROV
                    ALTERNATE RECORD KEY CUIT-CONS WITH DUPLICATES
@@ -31,35 +31,34 @@
                88 eof-CUITPROV value "10".
 
            01 tablaConteo.
-               03 COUNTER OCCURS 99999999 TIMES pic 9(08).
-           01 COUNTERAUX pic 9(10).
+               03 COUNTER pic 9(08) VALUE 0 OCCURS 99999999 TIMES.
+
+           01 COUNTERAUX pic 9(08).
 
        procedure division.
            OPEN INPUT CUITPROV.
 
-           CALL 'actualizarProv' USING tablaConteo.
-
            READ CUITPROV NEXT RECORD.
            PERFORM contar UNTIL eof-CUITPROV.
 
-           DISPLAY COUNTER(3).
            CALL  "actualizarProv" USING tablaConteo.
 
            CLOSE CUITPROV.
        STOP RUN.
 
        contar.
-           DISPLAY COD-PROV of REG_CUITPROV.
+
            DISPLAY CUIT-CONS of REG_CUITPROV.
+           DISPLAY COD-PROV of REG_CUITPROV.
+
            DISPLAY FECHA-ALTA of REG_CUITPROV.
-      *>      MOVE COUNTER(COD-PROV of REG_CUITPROV) TO COUNTERAUX.
+           MOVE COUNTER(COD-PROV of REG_CUITPROV) TO COUNTERAUX.
 
            ADD 1 to COUNTERAUX.
-           DISPLAY COUNTERAUX.
 
-      *>      MOVE  COUNTERAUX TO COUNTER(COD-PROV of REG_CUITPROV).
+           MOVE  COUNTERAUX TO COUNTER(COD-PROV of REG_CUITPROV).
            READ CUITPROV NEXT RECORD.
-
+           DISPLAY "-------------".
       *>  actualizarProv.
       *>      OPEN OUTPUT PROV.
       *>      MOVE 1 TO i

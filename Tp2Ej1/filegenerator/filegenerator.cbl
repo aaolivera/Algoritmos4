@@ -34,7 +34,7 @@
                assign to disk "PROV.OUT"
                ORGANIZATION INDEXED
                ACCESS MODE IS RANDOM
-               RECORD KEY COD-PROV-OUT
+               RECORD KEY IS PROV-OUT
                FILE STATUS IS fs-PROV-OUT.
        DATA DIVISION.
 
@@ -56,23 +56,23 @@
                        06 FILL pic x(6).
            fd PROV.
                01 REG_PROV.
-                   03 COD-PROV pic 9(8).
+                   03 COD-PROV pic 9(08).
                    03 DIR pic 9(30).
                    03 TEL pic 9(15).
                    03 RUBRO pic X(4).
                    03 DESC-RUBRO pic X(15).
                    03 FECHA-ALTA pic 9(8).
-                   03 CANT-CONS-ASIG pic 9(4).
+                   03 CANT pic 9(3).
 
            fd PROVOUT.
                01 REG_PROV_OUT.
-                   03 PROV-OUT pic 9(8).
+                   03 PROV-OUT pic 9(08).
                    03 DIR-OUT pic 9(30).
                    03 TEL-OUT pic 9(15).
                    03 RUBRO-OUT pic X(4).
                    03 DESC-RUBRO-OUT pic X(15).
                    03 FECHA-ALTA-OUT pic 9(8).
-                   03 CANT-CONS-ASIG-OUT pic 9(4).
+                   03 CANT-OUT pic 9(3).
 
 
        WORKING-STORAGE SECTION.
@@ -82,6 +82,7 @@
            01 fs-CUITPROVOUT pic xx.
                88 ok-CUITPROVOUT value "00".
                88 eof-CUITPROVOUT value "10".
+
            01 fs-PROV pic xx.
                88 ok-PROV value "00".
                88 eof-PROV value "10".
@@ -106,7 +107,7 @@
            OPEN input PROV.
            OPEN OUTPUT PROVOUT.
 
-           DISPLAY "ARCHIVO DE PROVEEDORES"
+           DISPLAY "ARCHIVO DE PROVEEDORES".
            READ PROV.
            PERFORM grabar_PROVOUT until eof-PROV.
 

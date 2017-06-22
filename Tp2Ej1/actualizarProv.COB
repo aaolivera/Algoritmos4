@@ -21,7 +21,7 @@
            DATA DIVISION.
 
            FILE SECTION.
-            fd PROV.
+           fd PROV.
                01 REG_PROV.
                    03 COD-PROV pic 9(8).
                    03 DIR pic 9(30).
@@ -55,8 +55,8 @@
            CLOSE PROV.
 
            DISPLAY "--- PRUEBA ACTUALIZACION DE ARCHIVOS---"
-           OPEN I-O PROV.
 
+           OPEN I-O PROV.
            PERFORM actualizar UNTIL iterator EQUAL 9.
            CLOSE PROV.
 
@@ -70,9 +70,9 @@
 
        actualizar.
            if(COUNTER(iterator) > 0)
-               READ PROV KEY IS iterator
-                INVALID KEY DISPLAY "KEY IS NOT EXISTING"
-               END-READ.
+               READ PROV
+                   KEY IS iterator
+                   INVALID KEY DISPLAY "ERROR"
                DISPLAY REG_PROV
                MOVE COUNTER(iterator) TO CANT-CONS-ASIG of REG_PROV
                REWRITE REG_PROV

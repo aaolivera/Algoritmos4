@@ -21,8 +21,7 @@
                assign to disk "CUITPROV.OUT"
                ORGANIZATION INDEXED
                ACCESS MODE IS RANDOM
-               RECORD KEY COD-PROV-OUT
-               ALTERNATE RECORD KEY CUIT-CONS-OUT WITH DUPLICATES
+               RECORD KEY REG_KEY
                FILE STATUS IS fs-CUITPROVOUT.
 
            select PROV
@@ -49,8 +48,9 @@
 
            fd CUITPROVOUT.
                01 REG_CUITPROVOUT.
-                   03 CUIT-CONS-OUT pic 9(15).
-                   03 COD-PROV-OUT pic 9(08).
+                   03 REG_KEY.
+                       06 CUIT-CONS-OUT pic 9(15).
+                       06 COD-PROV-OUT pic 9(8).
                    03 FECHA-ALTA-OUT.
                        06 ANIO pic x(4).
                        06 FILL pic x(6).
@@ -134,10 +134,12 @@
            MOVE FECHA-ALTA of REG_CUITPROV to FECHA-ALTA-OUT of
            REG_CUITPROVOUT.
 
+
+
+           WRITE REG_CUITPROVOUT
+               INVALID KEY DISPLAY "CUIT REPETIDO"
+           END-WRITE.
            DISPLAY REG_CUITPROV.
-
-           WRITE REG_CUITPROVOUT.
-
            READ CUITPROV.
 
 

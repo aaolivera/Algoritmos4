@@ -59,16 +59,5 @@
            MOVE  COUNTERAUX TO COUNTER(COD-PROV of REG_CUITPROV).
            READ CUITPROV NEXT RECORD.
            DISPLAY "-------------".
-      *>  actualizarProv.
-      *>      OPEN OUTPUT PROV.
-      *>      MOVE 1 TO i
-      *>      PERFORM actualizar UNTIL i == 10000000.
-      *>      CLOSE PROV.
-      *>  actualizar.
-      *>      if(tablaconteo(i) > 0)
-      *>          READ PROV RECORD KEY IS i
-      *>          MOVE tablaConteo(i) TO PRO_REG_CANT_CONS
-      *>          REWRITE PROV_REG.
-      *>      ADD 1 TO i.
 
        end program tp2ej1.

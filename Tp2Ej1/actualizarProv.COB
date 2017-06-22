@@ -29,13 +29,15 @@
                    03 RUBRO pic X(4).
                    03 DESC-RUBRO pic X(15).
                    03 FECHA-ALTA pic 9(8).
-                   03 CANT-CONS-ASIG pic 9(4).
+                   03 CANT-CONS-ASIG pic 9(3).
 
 
            WORKING-STORAGE SECTION.
            01 fs-PROV pic xx.
                88 ok-PROV value "00".
                88 eof-PROV value "10".
+
+           01 iterator pic 9(1) VALUE 1.
 
            LINKAGE SECTION.
            01 tablaConteo.
@@ -47,11 +49,15 @@
            DISPLAY COUNTER(2).
 
            DISPLAY "--- PRUEBA LECTURA PROV---"
-
            OPEN INPUT PROV.
            READ PROV NEXT RECORD.
-
            PERFORM leer UNTIL eof-PROV.
+           CLOSE PROV.
+
+           DISPLAY "--- PRUEBA ACTUALIZACION DE ARCHIVOS---"
+           OPEN I-O PROV.
+
+           PERFORM actualizar UNTIL iterator EQUAL 9.
            CLOSE PROV.
 
            STOP RUN.
@@ -60,4 +66,18 @@
            DISPLAY REG_PROV.
            READ PROV NEXT RECORD.
 
+
+
+       actualizar.
+           if(COUNTER(iterator) > 0)
+               READ PROV KEY IS iterator
+                INVALID KEY DISPLAY "KEY IS NOT EXISTING"
+               END-READ.
+               DISPLAY REG_PROV
+               MOVE COUNTER(iterator) TO CANT-CONS-ASIG of REG_PROV
+               REWRITE REG_PROV
+               END-REWRITE.
+
+           ADD 1 TO iterator.
+           DISPLAY iterator.
        END PROGRAM actualizarProv.

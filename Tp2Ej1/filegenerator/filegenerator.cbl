@@ -56,7 +56,7 @@
                        06 FILL pic x(6).
            fd PROV.
                01 REG_PROV.
-                   03 COD-PROV pic 9(08).
+                   03 COD-PROV pic 9(8).
                    03 DIR pic 9(30).
                    03 TEL pic 9(15).
                    03 RUBRO pic X(4).
@@ -66,7 +66,7 @@
 
            fd PROVOUT.
                01 REG_PROV_OUT.
-                   03 PROV-OUT pic 9(08).
+                   03 PROV-OUT pic 9(8).
                    03 DIR-OUT pic 9(30).
                    03 TEL-OUT pic 9(15).
                    03 RUBRO-OUT pic X(4).

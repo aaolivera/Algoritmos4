@@ -7,32 +7,32 @@
 		input-output section.
 		file-control.
 		     select CONSOR-1
-		     assign to disk "C:\CONSOR-1.txt"
+		     assign to disk "CONSOR-1.txt"
              organization is line sequential
              file status is fs-CONSOR-1.
              
              select CONSOR-2
-		     assign to disk "C:\CONSOR-2.txt"
+		     assign to disk "CONSOR-2.txt"
              organization is line sequential
              file status is fs-CONSOR-2.
              
              select CONSOR-3
-		     assign to disk "C:\CONSOR-3.txt"
+		     assign to disk "CONSOR-3.txt"
              organization is line sequential
              file status is fs-CONSOR-3.
              
 	         select CUENTAS
-		     assign to disk "C:\CUENTAS.txt"
+		     assign to disk "CUENTAS.txt"
              organization is line sequential
              file status is fs-CUENTAS.
              
              select ESTADO
-		     assign to disk "C:\ESTADO.txt"
+		     assign to disk "ESTADO.txt"
              organization is line sequential
              file status is fs-ESTADO.
              
              select MAESTRO
-		     assign to disk "C:\temp\MAESTRO.txt"
+		     assign to disk "temp\MAESTRO.txt"
              organization is line sequential
              file status is fs-MAESTRO.
              

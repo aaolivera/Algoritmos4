@@ -26,5 +26,10 @@
   <ItemGroup>
     <Compile Include="fileGenerator.cbl" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CUITPROV.INFO">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Micro Focus\Visual COBOL\v1.0\MicroFocus.COBOL.targets" />
 </Project>

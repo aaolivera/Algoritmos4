@@ -8,9 +8,10 @@
            FILE-CONTROL.
                select CUITPROV
                    assign to disk "CUITPROV.OUT"
-                   organization INDEXED ACCESS RANDOM
+                   organization INDEXED 
+                   access mode is sequential
                    RECORD KEY REG_KEY
-               FILE STATUS IS fs-CUITPROV.
+                   FILE STATUS IS fs-CUITPROV.
 
                SELECT MAESTRO
                    assign to disk "MAESTRO.txt"
@@ -22,11 +23,11 @@
                    ORGANIZATION INDEXED
                    ACCESS MODE is RANDOM
                    RECORD KEY IS COD-PROV of REG_PROV
-               FILE STATUS IS fs-PROV.
+                   FILE STATUS IS fs-PROV.
 
                SELECT ORDENAR
-                       ASSIGN TO "WORK.TMP"
-                  FILE status is fs-ORDENAR.
+                   ASSIGN TO "WORK.TMP"
+                   FILE status is fs-ORDENAR.
        data division.
 
 
@@ -144,8 +145,19 @@
 
        SALIDA.
             PERFORM EMITIR_ENCABEZADO.
-      *>       RETURN ORDENAR.
-
+            RETURN ORDENAR end.
+            perform PROCESARORDENADO until eof-ORDENAR.
+            
+       PROCESARORDENADO.
+           PERFORM VALIDARPAGINA.
+           display "LINEA CON DATOS " COD-PROV of REG_ORDENAR" "
+           CUIT-CONS of REG_ORDENAR .
+           RETURN ORDENAR end.
+           
+       VALIDARPAGINA.
+           if(LINEAS + 1 > 60)
+               add 1 to PAGINAS
+               perform EMITIR_ENCABEZADO.  
        EMITIR_ENCABEZADO.
            accept WS-YYYY-MM-DD from date yyyymmdd.
            display "Fecha: "WS-YYYY-MM-DD"                             "
@@ -154,6 +166,7 @@
            display " ".
            move 3 to LINEAS.
 
+       
        LOAD_RECORD.
            MOVE COD-PROV of REG_CUITPROV TO COD-PROV of REG_ORDENAR
            MOVE CUIT-CONS of REG_CUITPROV TO CUIT-CONS of REG_ORDENAR
@@ -168,6 +181,7 @@
            DISPLAY "-------------".
            PERFORM BUSCAR_DATA_PROV.
            DISPLAY "REG_ORDENAR: " REG_ORDENAR.
+           release REG_ORDENAR
            READ CUITPROV NEXT RECORD.
 
 

@@ -13,34 +13,35 @@
 
        INPUT-OUTPUT SECTION.
              FILE-CONTROL.
+             
              select CUITPROV
-             assign to disk "C:\CUITPROV.INFO"
-           organization is line sequential
-           FILE STATUS IS fs-CUITPROV.
+             assign to disk "CUITPROV.INFO"
+               organization is line sequential
+               FILE STATUS IS fs-CUITPROV.
 
-       select CUITPROVOUT
-             assign to disk "C:\CUITPROV.OUT"
-           ORGANIZATION INDEXED
-           ACCESS MODE DYNAMIC
-           RECORD KEY COD-PROV-OUT
-           ALTERNATE RECORD KEY CUIT-CONS-OUT WITH DUPLICATES
-           FILE STATUS IS fs-CUITPROVOUT.
+             select CUITPROVOUT
+             assign to disk "CUITPROV.OUT"
+               ORGANIZATION INDEXED
+               access mode is sequential
+               RECORD KEY REG_KEY
+               FILE STATUS IS fs-CUITPROVOUT.
 
        DATA DIVISION.
 
        FILE SECTION.
-       fd CUITPROV.
+            fd CUITPROV.
              01 REG_CUITPROV.
-             03 CUIT-CONS pic 9(15).
-         03 COD-PROV pic 9(08).
-             03 FECHA-ALTA.
-            06 ANIO pic x(4).
-            06 FILL pic x(6).
+                 03 CUIT-CONS pic 9(15).
+                 03 COD-PROV pic 9(8).
+                 03 FECHA-ALTA.
+                   06 ANIO pic x(4).
+                   06 FILL pic x(6).
 
-       fd CUITPROVOUT.
+           fd CUITPROVOUT.
              01 REG_CUITPROVOUT.
-				 03 CUIT-CONS-OUT pic 9(15).
-				 03 COD-PROV-OUT pic 9(08).
+                 03 REG_KEY.
+				   06 CUIT-CONS-OUT pic 9(15).
+				   06 COD-PROV-OUT pic 9(08).
 				 03 FECHA-ALTA.
 					06 ANIO pic x(4).
 					06 FILL pic x(6).

@@ -19,8 +19,8 @@
 
            select CUITPROVOUT
                assign to disk "CUITPROV.OUT"
-               ORGANIZATION INDEXED
-               ACCESS MODE IS RANDOM
+               organization INDEXED 
+               access mode is sequential
                RECORD KEY REG_KEY
                FILE STATUS IS fs-CUITPROVOUT.
 

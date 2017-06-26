@@ -63,7 +63,7 @@
            EXIT PROGRAM.
 
        leer.
-           DISPLAY REG_PROV.
+      *>      DISPLAY REG_PROV.
            READ PROV NEXT RECORD.
 
 

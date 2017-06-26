@@ -8,7 +8,7 @@
            FILE-CONTROL.
                select CUITPROV
                    assign to disk "CUITPROV.OUT"
-                   organization INDEXED 
+                   organization INDEXED
                    access mode is sequential
                    RECORD KEY REG_KEY
                    FILE STATUS IS fs-CUITPROV.
@@ -64,7 +64,8 @@
            SD ORDENAR.
                01 REG_ORDENAR.
                    03 RUBRO pic x(4).
-                   03 COD-PROV pic 9(8).
+                   03 COD-PROV-O pic 9(8).
+                   03 DESC pic X(15).
                    03 CUIT-CONS pic 9(15).
                    03 NOMBRE-CONSORCIO pic x(30).
                    03 TEL pic x(15).
@@ -76,16 +77,16 @@
                88 eof-CUITPROV value "10".
 
            01 fs-MAESTRO pic xx.
-		         88 ok-MAESTRO value "00".
-		         88 eof-MAESTRO value "10".
+                 88 ok-MAESTRO value "00".
+                 88 eof-MAESTRO value "10".
 
            01 fs-PROV pic xx.
-		         88 ok-PROV value "00".
-		         88 eof-PROV value "10".
+                 88 ok-PROV value "00".
+                 88 eof-PROV value "10".
 
            01 fs-ORDENAR pic xx.
-		         88 ok-ORDENAR value "00".
-		         88 eof-ORDENAR value "10".
+                 88 ok-ORDENAR value "00".
+                 88 eof-ORDENAR value "10".
 
            01 tablaConteo.
                03 COUNTER pic 9(08) VALUE 0 OCCURS 99999999 TIMES.
@@ -99,6 +100,9 @@
            01 LINEASAAGREGAR pic 9(8).
 
            01 FLAG pic 9(1) VALUE 0.
+           01 RUBRO_ACT pic x(4).
+           01 CONTADOR_RUBRO pic 9(2).
+           01 CONTADOR_TOTAL_RUBRO pic 9(2).
 
        procedure division.
 
@@ -115,10 +119,11 @@
 
            SORT ORDENAR
                ON ASCENDING RUBRO of REG_ORDENAR
-               ON ASCENDING COD-PROV of REG_ORDENAR
+               ON ASCENDING COD-PROV-O of REG_ORDENAR
                ON ASCENDING CUIT-CONS of REG_ORDENAR
            INPUT PROCEDURE is ENTRADA
            OUTPUT PROCEDURE is SALIDA.
+
 
        STOP RUN.
 
@@ -136,6 +141,7 @@
            READ CUITPROV NEXT RECORD.
 
        ENTRADA.
+           OPEN INPUT PROV.
            OPEN INPUT CUITPROV.
 
            READ CUITPROV NEXT RECORD.
@@ -144,20 +150,47 @@
 
 
        SALIDA.
-            PERFORM EMITIR_ENCABEZADO.
-            RETURN ORDENAR end.
-            perform PROCESARORDENADO until eof-ORDENAR.
-            
-       PROCESARORDENADO.
-           PERFORM VALIDARPAGINA.
-           display "LINEA CON DATOS " COD-PROV of REG_ORDENAR" "
-           CUIT-CONS of REG_ORDENAR .
-           RETURN ORDENAR end.
-           
-       VALIDARPAGINA.
+           PERFORM EMITIR_ENCABEZADO.
+           RETURN ORDENAR RECORD INTO REG_ORDENAR
+               AT END DISPLAY " ".
+           MOVE RUBRO of REG_ORDENAR to RUBRO_ACT.
+           MOVE 1 TO CONTADOR_TOTAL_RUBRO.
+           DISPLAY "RUBRO: " RUBRO_ACT"  DESCRIPCION: "
+           DESC OF REG_ORDENAR.
+
+           PERFORM PROCESAR_ORDENADO until eof-ORDENAR.
+
+           DISPLAY "TOTAL RUBROS: " CONTADOR_TOTAL_RUBRO.
+
+       PROCESAR_ORDENADO.
+           PERFORM VALIDAR_PAGINA.
+
+           IF RUBRO_ACT IS EQUAL TO RUBRO of REG_ORDENAR
+               ADD 1 TO CONTADOR_RUBRO
+           ELSE
+               DISPLAY "TOTAL DE PROVEEDORES: " CONTADOR_RUBRO
+               DISPLAY " "
+               MOVE 0 TO CONTADOR_RUBRO
+               ADD 1 TO CONTADOR_TOTAL_RUBRO
+               MOVE RUBRO of REG_ORDENAR to RUBRO_ACT
+
+               DISPLAY "RUBRO: " RUBRO_ACT "    DESCRIPCION: "
+               DESC of REG_ORDENAR
+               DISPLAY " "
+               ADD 4 TO LINEAS.
+
+           DISPLAY RUBRO of REG_ORDENAR" "COD-PROV-O of REG_ORDENAR
+               " " CUIT-CONS of REG_ORDENAR " " NOMBRE-CONSORCIO of
+               REG_ORDENAR " " TEL of REG_ORDENAR " " DIR of
+               REG_ORDENAR.
+           ADD 1 TO LINEAS.
+           RETURN ORDENAR RECORD INTO REG_ORDENAR
+               AT END DISPLAY " ".
+
+       VALIDAR_PAGINA.
            if(LINEAS + 1 > 60)
                add 1 to PAGINAS
-               perform EMITIR_ENCABEZADO.  
+               perform EMITIR_ENCABEZADO.
        EMITIR_ENCABEZADO.
            accept WS-YYYY-MM-DD from date yyyymmdd.
            display "Fecha: "WS-YYYY-MM-DD"                             "
@@ -166,10 +199,17 @@
            display " ".
            move 3 to LINEAS.
 
-       
+
        LOAD_RECORD.
-           MOVE COD-PROV of REG_CUITPROV TO COD-PROV of REG_ORDENAR
+           MOVE COD-PROV of REG_CUITPROV TO COD-PROV-O of REG_ORDENAR
            MOVE CUIT-CONS of REG_CUITPROV TO CUIT-CONS of REG_ORDENAR
+
+           MOVE COD-PROV-O to COD-PROV of REG_PROV
+               READ PROV
+                   INVALID KEY DISPLAY "ERROR"
+               END-READ
+           MOVE DESC-RUBRO of REG_PROV to DESC of REG_ORDENAR
+
 
            OPEN INPUT MAESTRO.
            READ MAESTRO.

@@ -45,28 +45,14 @@
 
        PROCEDURE DIVISION USING tablaConteo.
        MAIN-PROCEDURE.
-      *>      DISPLAY "--- PRUEBA PASAJE DE VARIABLES ---"
-      *>      DISPLAY COUNTER(2).
-
-      *>      DISPLAY "--- PRUEBA LECTURA PROV---"
-      *>      OPEN INPUT PROV.
-      *>      READ PROV NEXT RECORD.
-      *>      PERFORM leer UNTIL eof-PROV.
-      *>      CLOSE PROV.
-
            DISPLAY "--- ACTUALIZACION DE ARCHIVO ---"
 
            OPEN I-O PROV.
+           DISPLAY "-Registros actualizados:"
            PERFORM actualizar UNTIL iterator EQUAL 9.
            CLOSE PROV.
-
+           DISPLAY "--- FIN-ACTUALIZACION DE ARCHIVO ---"
            EXIT PROGRAM.
-
-       leer.
-      *>      DISPLAY REG_PROV.
-           READ PROV NEXT RECORD.
-
-
 
        actualizar.
            if(COUNTER(iterator) > 0)
@@ -76,7 +62,7 @@
                END-READ
 
                MOVE COUNTER(iterator) TO CANT-CONS-ASIG of REG_PROV
-               DISPLAY REG_PROV
+               DISPLAY "--"REG_PROV
                REWRITE REG_PROV
                END-REWRITE.
 

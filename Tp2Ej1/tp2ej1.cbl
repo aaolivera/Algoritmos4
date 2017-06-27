@@ -105,18 +105,19 @@
            01 CONTADOR_TOTAL_RUBRO pic 9(2).
 
        procedure division.
-
+           display "|--- Iniciando Tp2 ---|".
+           display "--- Procesando archivo CUITPROV ---".
            OPEN input CUITPROV.
            READ CUITPROV NEXT RECORD.
            PERFORM CONTAR UNTIL eof-CUITPROV.
-
-           CALL  "actualizarProv" USING tablaConteo.
            CLOSE CUITPROV.
-
+           display "--- Fin CUITPROV ---".
+           
+           CALL  "actualizarProv" USING tablaConteo.
+           
+           display "--- Generación de listado por rubro ---".
            MOVE 1 to PAGINAS.
            MOVE 0 to LINEAS.
-
-
            SORT ORDENAR
                ON ASCENDING RUBRO of REG_ORDENAR
                ON ASCENDING COD-PROV-O of REG_ORDENAR
@@ -124,14 +125,11 @@
            INPUT PROCEDURE is ENTRADA
            OUTPUT PROCEDURE is SALIDA.
 
-
        STOP RUN.
 
        CONTAR.
-
-
-           DISPLAY CUIT-CONS of REG_CUITPROV.
-           DISPLAY COD-PROV of REG_CUITPROV.
+           display "--CUIT-CONS "CUIT-CONS of REG_CUITPROV" COD-PROV "
+           COD-PROV of REG_CUITPROV.
 
            MOVE COUNTER(COD-PROV of REG_CUITPROV) TO COUNTERAUX.
 
@@ -148,7 +146,6 @@
            PERFORM LOAD_RECORD UNTIL eof-CUITPROV.
            CLOSE CUITPROV.
 
-
        SALIDA.
            PERFORM EMITIR_ENCABEZADO.
            RETURN ORDENAR RECORD INTO REG_ORDENAR
@@ -157,9 +154,12 @@
            MOVE 1 TO CONTADOR_TOTAL_RUBRO.
            DISPLAY "RUBRO: " RUBRO_ACT"  DESCRIPCION: "
            DESC OF REG_ORDENAR.
-
+           MOVE 0 TO CONTADOR_RUBRO.
+           display
+               "COD_PROV   CUIT-CONSORCIO   NOMBRE-CONSORCIO   TEL-CONS"
+               "   DIR-CONS".
            PERFORM PROCESAR_ORDENADO until eof-ORDENAR.
-
+           DISPLAY "TOTAL DE PROVEEDORES POR RUBRO: " CONTADOR_RUBRO
            DISPLAY "TOTAL RUBROS: " CONTADOR_TOTAL_RUBRO.
 
        PROCESAR_ORDENADO.
@@ -168,7 +168,7 @@
            IF RUBRO_ACT IS EQUAL TO RUBRO of REG_ORDENAR
                ADD 1 TO CONTADOR_RUBRO
            ELSE
-               DISPLAY "TOTAL DE PROVEEDORES: " CONTADOR_RUBRO
+               DISPLAY "TOTAL DE PROVEEDORES POR RUBRO: " CONTADOR_RUBRO
                DISPLAY " "
                MOVE 0 TO CONTADOR_RUBRO
                ADD 1 TO CONTADOR_TOTAL_RUBRO
@@ -177,12 +177,16 @@
                DISPLAY "RUBRO: " RUBRO_ACT "    DESCRIPCION: "
                DESC of REG_ORDENAR
                DISPLAY " "
-               ADD 4 TO LINEAS.
-
-           DISPLAY RUBRO of REG_ORDENAR" "COD-PROV-O of REG_ORDENAR
-               " " CUIT-CONS of REG_ORDENAR " " NOMBRE-CONSORCIO of
-               REG_ORDENAR " " TEL of REG_ORDENAR " " DIR of
-               REG_ORDENAR.
+               ADD 4 TO LINEAS
+               display
+               "COD_PROV   CUIT-CONSORCIO   NOMBRE-CONSORCIO   TEL-CONS"
+               "   DIR-CONS".
+           
+           
+           DISPLAY COD-PROV-O of REG_ORDENAR"   "
+                   CUIT-CONS of REG_ORDENAR " "
+                   NOMBRE-CONSORCIO of REG_ORDENAR " "
+                   DIR of REG_ORDENAR.
            ADD 1 TO LINEAS.
            RETURN ORDENAR RECORD INTO REG_ORDENAR
                AT END DISPLAY " ".
@@ -218,9 +222,7 @@
            MOVE 0 to FLAG.
            CLOSE MAESTRO.
 
-           DISPLAY "-------------".
            PERFORM BUSCAR_DATA_PROV.
-           DISPLAY "REG_ORDENAR: " REG_ORDENAR.
            release REG_ORDENAR
            READ CUITPROV NEXT RECORD.
 

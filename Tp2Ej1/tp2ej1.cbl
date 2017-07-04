@@ -88,6 +88,7 @@
            01 WS-YYYY-MM-DD pic 9(8).
            01 PAGINAS pic 99.
            01 LINEAS pic 9(8).
+           01 LINEASAINSERTAR pic 9(9).
            01 RUBRO_ACT pic x(4).
            01 COD-PROV_ACT pic 9(8).
            01 CONTADOR_PROV_POR_RUBRO pic 9(2).
@@ -204,6 +205,8 @@
                ADD 1 TO CONTADOR_TOTAL_RUBRO
                MOVE RUBRO of REG_ORDENAR to RUBRO_ACT.
 
+           move 1 to LINEASAINSERTAR.
+           perform VALIDAR_PAGINA.
            DISPLAY COD-PROV of REG_ORDENAR"   "
                    CUIT-CONS of REG_ORDENAR " "
                    NOMBRE-CONSORCIO of REG_ORDENAR " "
@@ -214,8 +217,9 @@
            RETURN ORDENAR RECORD INTO REG_ORDENAR.
 
        VALIDAR_PAGINA.
-           if(LINEAS + 1 > 60)
+           if(LINEAS + LINEASAINSERTAR > 10)
                add 1 to PAGINAS
+               move 0 to LINEAS
                perform EMITIR_ENCABEZADO.
                
        EMITIR_ENCABEZADO.
@@ -224,20 +228,27 @@
            "                  Hoja nro "PAGINAS.
            display "                  LISTADO DE PROVEEDORES ASIGNADOS".
            display " ".
-           move 3 to LINEAS.
+           ADD 3 to LINEAS.
 
 
        EMITIR_ENCABEZADO_RUBRO.
+       move 3 to LINEASAINSERTAR.
+       perform VALIDAR_PAGINA.
+           
        DISPLAY "RUBRO: " RUBRO of REG_ORDENAR "  DESCRIPCION: "
            DESC OF REG_ORDENAR.
        DISPLAY
                "COD_PROV   CUIT-CONSORCIO  NOMBRE-CONSORCIO            "
                "   TEL-CONS        DIR-CONS".
-       move 3 to LINEAS.
+       ADD 3 to LINEAS.
        EMITIR_TOTAL_PROOVEEDORES_POR_RUBRO.
+       move 1 to LINEASAINSERTAR.
+       perform VALIDAR_PAGINA.
        DISPLAY "TOTAL DE PROVEEDORES POR RUBRO: "
                CONTADOR_PROV_POR_RUBRO.
-       move 1 to LINEAS.
+       ADD 1 to LINEAS.
        EMITIR_TOTAL_RUBRO.
+       move 1 to LINEASAINSERTAR.
+       perform VALIDAR_PAGINA.
        DISPLAY "TOTAL RUBROS: " CONTADOR_TOTAL_RUBRO.
-       move 1 to LINEAS.
+       ADD 1 to LINEAS.

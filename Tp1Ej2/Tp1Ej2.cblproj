@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <ProjectGuid>{BBCEEC66-1ED4-41DD-B880-7D6C8813CBAA}</ProjectGuid>
-    <OutputName>Tp2Ej1</OutputName>
+    <ProjectGuid>{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}</ProjectGuid>
+    <OutputName>Tp1Ej2</OutputName>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Tp2Ej1</RootNamespace>
+    <RootNamespace>Tp1Ej2</RootNamespace>
     <MFProjectType>Native</MFProjectType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -24,21 +24,16 @@
     <MaxError>100</MaxError>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="tp2ej1.cbl">
-      <NoSqlDirectives>True</NoSqlDirectives>
-    </Compile>
-    <Compile Include="actualizarProv.COB">
-      <NoSqlDirectives>True</NoSqlDirectives>
-    </Compile>
+    <Compile Include="Program1.cbl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CUITPROV.OUT">
+    <None Include="CONSOR-1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="MAESTRO.txt">
+    <None Include="CONSOR-2.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PROV.OUT">
+    <None Include="CONSOR-3.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

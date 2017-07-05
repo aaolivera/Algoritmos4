@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <ProjectGuid>{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}</ProjectGuid>
-    <OutputName>Tp2Ej1Generador</OutputName>
+    <ProjectGuid>{BBCEEC66-1ED4-41DD-B880-7D6C8813CBAA}</ProjectGuid>
+    <OutputName>Tp2</OutputName>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Tp2Ej1Generador</RootNamespace>
+    <RootNamespace>Tp2</RootNamespace>
     <MFProjectType>Native</MFProjectType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -24,13 +24,21 @@
     <MaxError>100</MaxError>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="fileGenerator.cbl" />
+    <Compile Include="tp2.cbl">
+      <NoSqlDirectives>True</NoSqlDirectives>
+    </Compile>
+    <Compile Include="actualizarProv.COB">
+      <NoSqlDirectives>True</NoSqlDirectives>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CUITPROV.INFO">
+    <None Include="CUITPROV.OUT">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PROV.INFO">
+    <None Include="MAESTRO.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PROV.OUT">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

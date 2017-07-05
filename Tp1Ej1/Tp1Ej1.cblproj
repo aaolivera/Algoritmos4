@@ -4,9 +4,9 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <ProjectGuid>{C3A0E180-73A6-45F1-8650-5061C32183E2}</ProjectGuid>
-    <OutputName>Algoritmos4</OutputName>
+    <OutputName>Tp1Ej1</OutputName>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Algoritmos4</RootNamespace>
+    <RootNamespace>Tp1Ej1</RootNamespace>
     <MFProjectType>Native</MFProjectType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">

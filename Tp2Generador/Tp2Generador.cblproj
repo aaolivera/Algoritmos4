@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <ProjectGuid>{DCB1F0A7-764B-4F7B-AD6A-87EBB220E66E}</ProjectGuid>
-    <OutputName>Algoritmos4Tp1Ej2</OutputName>
+    <ProjectGuid>{ADECEA92-C42C-4DF5-BE2B-E39B6D83AFF7}</ProjectGuid>
+    <OutputName>Tp2Generador</OutputName>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Algoritmos4Tp1Ej2</RootNamespace>
+    <RootNamespace>Tp2Generador</RootNamespace>
     <MFProjectType>Native</MFProjectType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -24,16 +24,13 @@
     <MaxError>100</MaxError>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Program1.cbl" />
+    <Compile Include="fileGenerator.cbl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="CONSOR-1.txt">
+    <None Include="CUITPROV.INFO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="CONSOR-2.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="CONSOR-3.txt">
+    <None Include="PROV.INFO">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
